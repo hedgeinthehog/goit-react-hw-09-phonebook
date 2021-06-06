@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-07-phonebook",
+  "name": "goit-react-hw-08-phonebook",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://hedgeinthehog.github.io/goit-react-hw-07-phonebook",
+  "homepage": "https://hedgeinthehog.github.io/goit-react-hw-08-phonebook",
   "dependencies": {
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^5.12.0",
@@ -48,7 +48,7 @@
   "devDependencies": {
     "husky": "^6.0.0",
     "lint-staged": "^10.5.4",
-    "prettier": "^2.2.1",
+    "prettier": "^2.3.1",
     "redux-devtools-extension": "^2.13.9"
   }
 }
