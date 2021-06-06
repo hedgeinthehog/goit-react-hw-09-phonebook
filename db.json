@@ -1,0 +1,19 @@
+{
+  "contacts": [
+    {
+      "id": "1",
+      "name": "Jason Duck",
+      "number": "231-32-34"
+    },
+    {
+      "id": "2",
+      "name": "James Hammond",
+      "number": "241-42-98"
+    },
+    {
+      "name": "Minion da Bob",
+      "number": "234-12-98",
+      "id": "cg3tmoZ"
+    }
+  ]
+}
