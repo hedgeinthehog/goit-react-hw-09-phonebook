@@ -22,7 +22,7 @@ const items = createReducer([], {
       alert(`${payload.name} is already in contacts`);
       return state;
     }
-    return [payload, ...state];
+    return [...state, payload];
   },
   [deleteContactSuccess]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
