@@ -6,6 +6,7 @@ import ContactList from '../../components/ContactList';
 import contactsOperations from '../../redux/contacts/contacts-operations';
 import contactsSelectors from '../../redux/contacts/contacts-selectors';
 import styles from './ContactsView.module.css';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 class ContactsView extends React.Component {
   componentDidMount() {
@@ -25,7 +26,7 @@ class ContactsView extends React.Component {
           <div className={styles.contactsWrapper}>
             <h2>Contacts</h2>
             <Filter />
-            {isLoadingContacts && <h2>Loading...</h2>}
+            {isLoadingContacts && <LinearProgress />}
             <ContactList />
           </div>
         </div>

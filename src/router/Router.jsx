@@ -3,6 +3,7 @@ import { Route, Switch, Redirect } from 'react-router-dom';
 import { paths } from './routes';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
+import LinearProgress from '@material-ui/core/LinearProgress';
 
 const HomeView = lazy(() => import('../views/HomeView/HomeView'));
 const RegistrationView = lazy(() =>
@@ -12,7 +13,7 @@ const LoginView = lazy(() => import('../views/LoginView/LoginView'));
 const ContactsView = lazy(() => import('../views/ContactsView/ContactsView'));
 
 const Router = () => (
-  <Suspense fallback={<h1>Loading...</h1>}>
+  <Suspense fallback={<LinearProgress />}>
     <Switch>
       <Route path={paths.home} component={HomeView} exact />
       <PublicRoute
