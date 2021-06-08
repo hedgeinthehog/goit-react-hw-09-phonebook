@@ -1,0 +1,10 @@
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 5px;
+}
+
+.listItem:hover,
+.listItem:focus {
+  box-shadow: 0px 0px 12px -2px;
+}

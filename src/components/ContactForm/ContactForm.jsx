@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Button from '../styled-components/Button';
-import ContentBox from '../styled-components/ContentBox';
-import Input from '../styled-components/Input';
-import Label from '../styled-components/Label';
-import FormField from '../styled-components/FormField';
 import contactsOperations from '../../redux/contacts/contacts-operations';
-
-const Form = ContentBox.withComponent('form');
+import styles from './ContactForm.module.css';
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
+import Box from '@material-ui/core/Box';
 
 class ContactForm extends React.Component {
   state = {
@@ -39,39 +36,35 @@ class ContactForm extends React.Component {
     const { name, number } = this.state;
 
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <FormField>
-          <Label>
-            Name
-            <Input
-              type="text"
-              name="name"
-              value={name}
-              pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
-              title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
-              required
-              onChange={this.handleChange}
-            />
-          </Label>
-        </FormField>
-        <FormField>
-          <Label>
-            Number
-            <Input
-              type="tel"
-              name="number"
-              value={number}
-              pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
-              title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
-              required
-              onChange={this.handleChange}
-            />
-          </Label>
-        </FormField>
-        <Button type="submit" bg="light" position="bottom">
-          Add contact
-        </Button>
-      </Form>
+      <Box className={styles.box}>
+        <form onSubmit={this.handleSubmit}>
+          <TextField
+            type="text"
+            name="name"
+            value={name}
+            pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+            title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
+            required
+            onChange={this.handleChange}
+            label="Name"
+            className={styles.input}
+          />
+          <TextField
+            type="tel"
+            name="number"
+            value={number}
+            pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+            title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
+            required
+            onChange={this.handleChange}
+            label="Number"
+            className={styles.input}
+          />
+          <Button type="submit" className={styles.button}>
+            Add contact
+          </Button>
+        </form>
+      </Box>
     );
   }
 }

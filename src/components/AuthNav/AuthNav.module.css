@@ -1,0 +1,12 @@
+.navItem {
+  color: inherit;
+  text-decoration: none;
+}
+
+.button {
+  color: inherit;
+}
+
+.active {
+  text-decoration: underline;
+}

@@ -1,13 +1,18 @@
 import { connect } from 'react-redux';
 import authOperations from '../../redux/auth/auth-operations';
 import authSelectors from '../../redux/auth/auth-selectors';
+import styles from './UserMenu.module.css';
+import Button from '@material-ui/core/Button';
+import Hidden from '@material-ui/core/Hidden';
 
 const UserMenu = ({ email, onLogout }) => (
-  <div>
-    <span>Welcome, {email}</span>
-    <button type="button" onClick={onLogout}>
+  <div className={styles.wrapper}>
+    <Hidden xsDown>
+      <span>Welcome, {email}</span>
+    </Hidden>
+    <Button onClick={onLogout} className={styles.button}>
       Logout
-    </button>
+    </Button>
   </div>
 );
 

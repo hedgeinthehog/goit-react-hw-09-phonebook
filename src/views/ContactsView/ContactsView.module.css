@@ -1,0 +1,25 @@
+.formWrapper,
+.contactsWrapper {
+  margin: 0 auto;
+}
+
+@media screen and (min-width: 768px) {
+  .wrapper {
+    display: flex;
+  }
+
+  .title {
+    display: block;
+    width: 200px;
+    margin: 24px auto;
+  }
+
+  .formWrapper {
+    margin-right: 30px;
+    width: 30vw;
+  }
+
+  .contactsWrapper {
+    flex-grow: 1;
+  }
+}

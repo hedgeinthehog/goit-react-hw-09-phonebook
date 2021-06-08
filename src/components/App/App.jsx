@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import authOperations from '../../redux/auth/auth-operations';
 import Router from '../../router/Router';
 import AppBar from '../AppBar';
+import Container from '@material-ui/core/Container';
 
 class App extends Component {
   componentDidMount() {
@@ -11,10 +12,10 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <Container>
         <AppBar />
         <Router />
-      </>
+      </Container>
     );
   }
 }

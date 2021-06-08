@@ -1,14 +1,15 @@
-import { Suspense } from 'react';
+import { lazy, Suspense } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { lazy } from 'react';
 import { paths } from './routes';
 import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 
-const HomeView = lazy(() => import('../views/HomeView'));
-const RegistrationView = lazy(() => import('../views/RegistrationView'));
-const LoginView = lazy(() => import('../views/LoginView'));
-const ContactsView = lazy(() => import('../views/ContactsView'));
+const HomeView = lazy(() => import('../views/HomeView/HomeView'));
+const RegistrationView = lazy(() =>
+  import('../views/RegistrationView/RegistrationView'),
+);
+const LoginView = lazy(() => import('../views/LoginView/LoginView'));
+const ContactsView = lazy(() => import('../views/ContactsView/ContactsView'));
 
 const Router = () => (
   <Suspense fallback={<h1>Loading...</h1>}>

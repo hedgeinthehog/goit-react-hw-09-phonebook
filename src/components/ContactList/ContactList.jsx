@@ -1,28 +1,39 @@
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import Button from '../styled-components/Button';
 import contactsOperations from '../../redux/contacts/contacts-operations';
 import contactsSelectors from '../../redux/contacts/contacts-selectors';
+import styles from './ContactList.module.css';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+// import IconButton from '@material-ui/core/IconButton';
+// import Delete from '@material-ui/icons/Delete';
 
 const ContactList = ({ filteredContacts, deleteContact }) => {
   return (
-    <ul>
+    <List>
       {filteredContacts.map(({ id, name, number }) => (
-        <li key={id}>
+        <ListItem key={id} className={styles.listItem}>
           {name} {number}
-          <Button
+          {/* <IconButton
+            type="button"
+            aria-label="delete"
+            name={id}
+            onClick={deleteContact}
+            className={styles.deleteBtn}
+          >
+            <Delete />
+          </IconButton> */}
+          <button
             type="button"
             name={id}
             onClick={deleteContact}
-            size="small"
-            bg="dark"
-            position="right"
+            className={styles.deleteBtn}
           >
             Delete
-          </Button>
-        </li>
+          </button>
+        </ListItem>
       ))}
-    </ul>
+    </List>
   );
 };
 

@@ -34,6 +34,7 @@ const login = credentials => async dispatch => {
     token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
   } catch (error) {
+    alert('Email or Password is wrong');
     dispatch(authActions.loginError(error.message));
   }
 };

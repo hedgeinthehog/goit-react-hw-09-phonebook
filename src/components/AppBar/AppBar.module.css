@@ -1,0 +1,7 @@
+.appbar {
+  position: static;
+}
+
+.toolbar {
+  justify-content: space-between;
+}

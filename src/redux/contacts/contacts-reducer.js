@@ -45,18 +45,9 @@ const loading = createReducer(false, {
 });
 
 const error = createReducer(null, {
-  [fetchContactsError]: (_, { payload }) => {
-    console.log(payload);
-    return payload;
-  },
-  [addContactError]: (_, { payload }) => {
-    console.log(payload);
-    return payload;
-  },
-  [deleteContactError]: (_, { payload }) => {
-    console.log(payload);
-    return payload;
-  },
+  [fetchContactsError]: (_, { payload }) => payload,
+  [addContactError]: (_, { payload }) => payload,
+  [deleteContactError]: (_, { payload }) => payload,
 });
 
 export default combineReducers({

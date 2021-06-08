@@ -6,20 +6,19 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import App from './components/App';
 import 'modern-normalize/modern-normalize.css';
-import { ThemeProvider } from 'styled-components';
-import * as theme from './styles/theme.js';
-import GlobalStyle from './styles/globalStyles';
+import { StylesProvider } from '@material-ui/core/styles';
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
-        <ThemeProvider theme={theme}>
+        {/* <ThemeProvider theme={theme}> */}
+        <StylesProvider injectFirst>
           <BrowserRouter>
-            <GlobalStyle />
             <App />
           </BrowserRouter>
-        </ThemeProvider>
+          {/* </ThemeProvider> */}
+        </StylesProvider>
       </PersistGate>
     </Provider>
   </React.StrictMode>,
