@@ -60,6 +60,7 @@ class RegistrationView extends Component {
             value={password}
             onChange={this.handleChange}
             label="Password"
+            placeholder="minimum 7 symbols"
             className={styles.input}
           />
           <Button type="submit" className={styles.button}>

@@ -1,5 +1,7 @@
 import axios from 'axios';
 import authActions from './auth-actions';
+import { setAlert } from '../alert/alert-actions';
+import { setErrorAlert } from '../alert/alert-operations';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -19,9 +21,32 @@ const register = credentials => async dispatch => {
     const response = await axios.post('/users/signup', credentials);
 
     token.set(response.data.token);
+
+    console.log(response);
+
+    if (response.status === 201) {
+      console.log('alert');
+      dispatch(setAlert({ message: 'Welcone to PhoneBook!', type: 'success' }));
+    }
+
     dispatch(authActions.registerSuccess(response.data));
   } catch (error) {
-    dispatch(authActions.registerError(error.message));
+    if (error.response.status === 400) {
+      dispatch(
+        setAlert({
+          message:
+            'Registration unsuccessfull. A user with such email address might exist already',
+          type: 'error',
+        }),
+      );
+    }
+
+    dispatch(
+      authActions.registerError({
+        message: error.message,
+        error: error.response.status,
+      }),
+    );
   }
 };
 
@@ -34,8 +59,21 @@ const login = credentials => async dispatch => {
     token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
   } catch (error) {
-    alert('Email or Password is wrong');
-    dispatch(authActions.loginError(error.message));
+    if (error.response.status === 400) {
+      dispatch(
+        setAlert({
+          message: 'Login or password is incorrect',
+          type: 'error',
+        }),
+      );
+    }
+
+    dispatch(
+      authActions.loginError({
+        message: error.message,
+        error: error.response.status,
+      }),
+    );
   }
 };
 
@@ -48,7 +86,13 @@ const logout = () => async dispatch => {
     token.unset();
     dispatch(authActions.logoutSuccess());
   } catch (error) {
-    dispatch(authActions.logoutError(error.message));
+    dispatch(setErrorAlert(error));
+    dispatch(
+      authActions.logoutError({
+        message: error.message,
+        error: error.response.status,
+      }),
+    );
   }
 };
 
@@ -68,7 +112,13 @@ const getCurrentUser = () => async (dispatch, getState) => {
 
     dispatch(authActions.getCurrentUserSuccess(response.data));
   } catch (error) {
-    dispatch(authActions.getCurrentUserError(error.message));
+    dispatch(setErrorAlert(error));
+    dispatch(
+      authActions.getCurrentUserError({
+        message: error.message,
+        error: error.response.status,
+      }),
+    );
   }
 };
 

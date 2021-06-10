@@ -12,6 +12,7 @@ import {
   updateFilter,
 } from './contacts-actions';
 import contactsSelectors from './contacts-selectors';
+import { setErrorAlert } from '../alert/alert-operations';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -21,14 +22,15 @@ const fetchContacts = () => dispatch => {
   axios
     .get('/contacts')
     .then(({ data }) => dispatch(fetchContactsSuccess(data)))
-    .catch(error =>
+    .catch(error => {
+      dispatch(setErrorAlert(error));
       dispatch(
         fetchContactsError({
           message: error.message,
           error: error.response.status,
         }),
-      ),
-    );
+      );
+    });
 };
 
 const addContact = (name, number) => dispatch => {
@@ -39,14 +41,15 @@ const addContact = (name, number) => dispatch => {
   axios
     .post('/contacts', contact)
     .then(({ data }) => dispatch(addContactSuccess(data)))
-    .catch(error =>
+    .catch(error => {
+      dispatch(setErrorAlert(error));
       dispatch(
         addContactError({
           message: error.message,
           error: error.response.status,
         }),
-      ),
-    );
+      );
+    });
 };
 
 const deleteContact = id => (dispatch, getState) => {
@@ -62,14 +65,15 @@ const deleteContact = id => (dispatch, getState) => {
 
       if (shownContactsCount === 0) dispatch(updateFilter(''));
     })
-    .catch(error =>
+    .catch(error => {
+      dispatch(setErrorAlert(error));
       dispatch(
         deleteContactError({
           message: error.message,
           error: error.response.status,
         }),
-      ),
-    );
+      );
+    });
 };
 
 export default { addContact, deleteContact, fetchContacts };
