@@ -21,7 +21,14 @@ const fetchContacts = () => dispatch => {
   axios
     .get('/contacts')
     .then(({ data }) => dispatch(fetchContactsSuccess(data)))
-    .catch(error => dispatch(fetchContactsError(error.message)));
+    .catch(error =>
+      dispatch(
+        fetchContactsError({
+          message: error.message,
+          error: error.response.status,
+        }),
+      ),
+    );
 };
 
 const addContact = (name, number) => dispatch => {
@@ -32,22 +39,37 @@ const addContact = (name, number) => dispatch => {
   axios
     .post('/contacts', contact)
     .then(({ data }) => dispatch(addContactSuccess(data)))
-    .catch(error => dispatch(addContactError(error.message)));
+    .catch(error =>
+      dispatch(
+        addContactError({
+          message: error.message,
+          error: error.response.status,
+        }),
+      ),
+    );
 };
 
 const deleteContact = id => (dispatch, getState) => {
-  const state = getState();
-
   dispatch(deleteContactRequest());
-
-  const shownContactsCount =
-    contactsSelectors.getFilteredContacts(state).length;
-  if (shownContactsCount === 1) dispatch(updateFilter(''));
 
   axios
     .delete(`/contacts/${id}`)
-    .then(() => dispatch(deleteContactSuccess(id)))
-    .catch(error => dispatch(deleteContactError(error.message)));
+    .then(() => {
+      dispatch(deleteContactSuccess(id));
+      const state = getState();
+      const shownContactsCount =
+        contactsSelectors.getFilteredContacts(state).length;
+
+      if (shownContactsCount === 0) dispatch(updateFilter(''));
+    })
+    .catch(error =>
+      dispatch(
+        deleteContactError({
+          message: error.message,
+          error: error.response.status,
+        }),
+      ),
+    );
 };
 
 export default { addContact, deleteContact, fetchContacts };
