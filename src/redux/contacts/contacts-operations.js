@@ -9,7 +9,9 @@ import {
   deleteContactRequest,
   deleteContactSuccess,
   deleteContactError,
+  updateFilter,
 } from './contacts-actions';
+import contactsSelectors from './contacts-selectors';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
@@ -33,8 +35,14 @@ const addContact = (name, number) => dispatch => {
     .catch(error => dispatch(addContactError(error.message)));
 };
 
-const deleteContact = id => dispatch => {
+const deleteContact = id => (dispatch, getState) => {
+  const state = getState();
+
   dispatch(deleteContactRequest());
+
+  const shownContactsCount =
+    contactsSelectors.getFilteredContacts(state).length;
+  if (shownContactsCount === 1) dispatch(updateFilter(''));
 
   axios
     .delete(`/contacts/${id}`)
