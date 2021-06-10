@@ -5,8 +5,8 @@ import contactsSelectors from '../../redux/contacts/contacts-selectors';
 import styles from './ContactList.module.css';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-// import IconButton from '@material-ui/core/IconButton';
-// import Delete from '@material-ui/icons/Delete';
+import IconButton from '@material-ui/core/IconButton';
+import Delete from '@material-ui/icons/Delete';
 
 const ContactList = ({ filteredContacts, deleteContact }) => {
   return (
@@ -14,7 +14,7 @@ const ContactList = ({ filteredContacts, deleteContact }) => {
       {filteredContacts.map(({ id, name, number }) => (
         <ListItem key={id} className={styles.listItem}>
           {name} {number}
-          {/* <IconButton
+          <IconButton
             type="button"
             aria-label="delete"
             name={id}
@@ -22,15 +22,7 @@ const ContactList = ({ filteredContacts, deleteContact }) => {
             className={styles.deleteBtn}
           >
             <Delete />
-          </IconButton> */}
-          <button
-            type="button"
-            name={id}
-            onClick={deleteContact}
-            className={styles.deleteBtn}
-          >
-            Delete
-          </button>
+          </IconButton>
         </ListItem>
       ))}
     </List>
@@ -53,7 +45,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  deleteContact: e => dispatch(contactsOperations.deleteContact(e.target.name)),
+  deleteContact: e =>
+    dispatch(contactsOperations.deleteContact(e.currentTarget.name)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
