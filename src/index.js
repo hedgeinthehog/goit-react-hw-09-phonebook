@@ -6,6 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './redux/store';
 import App from './components/App';
 import 'modern-normalize/modern-normalize.css';
+import './styles/common.css';
 import { StylesProvider } from '@material-ui/core/styles';
 
 ReactDOM.render(
