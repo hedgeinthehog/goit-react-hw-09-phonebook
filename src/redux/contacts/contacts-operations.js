@@ -16,20 +16,22 @@ import { setErrorAlert } from '../alert/alert-operations';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-const fetchContacts = () => dispatch => {
+const fetchContacts = source => dispatch => {
   dispatch(fetchContactsRequest());
 
   axios
-    .get('/contacts')
+    .get('/contacts', source)
     .then(({ data }) => dispatch(fetchContactsSuccess(data)))
     .catch(error => {
-      dispatch(setErrorAlert(error));
-      dispatch(
-        fetchContactsError({
-          message: error.message,
-          error: error.response.status,
-        }),
-      );
+      if (!axios.isCancel(error)) {
+        dispatch(setErrorAlert(error));
+        dispatch(
+          fetchContactsError({
+            message: error.message,
+            error: error.response.status,
+          }),
+        );
+      }
     });
 };
 
