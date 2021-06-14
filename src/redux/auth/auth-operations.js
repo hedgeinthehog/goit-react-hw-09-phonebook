@@ -28,7 +28,7 @@ const token = {
 };
 
 const register = credentials => async dispatch => {
-  dispatch(registerRequest);
+  dispatch(registerRequest());
 
   try {
     const response = await axios.post('/users/signup', credentials);
@@ -61,7 +61,7 @@ const register = credentials => async dispatch => {
 };
 
 const login = credentials => async dispatch => {
-  dispatch(loginRequest);
+  dispatch(loginRequest());
 
   try {
     const response = await axios.post('/users/login', credentials);
@@ -88,7 +88,7 @@ const login = credentials => async dispatch => {
 };
 
 const logout = () => async dispatch => {
-  dispatch(logoutRequest);
+  dispatch(logoutRequest());
 
   try {
     await axios.post('/users/logout');
@@ -115,7 +115,7 @@ const getCurrentUser = () => async (dispatch, getState) => {
 
   token.set(persistedToken);
 
-  dispatch(getCurrentUserRequest);
+  dispatch(getCurrentUserRequest());
 
   try {
     const response = await axios.get('/users/current');

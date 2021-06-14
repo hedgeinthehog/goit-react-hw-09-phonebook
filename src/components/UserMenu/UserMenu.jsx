@@ -8,6 +8,8 @@ import Hidden from '@material-ui/core/Hidden';
 
 const UserMenu = () => {
   const email = useSelector(authSelectors.getUserEmail);
+  const isLoggingOut = useSelector(authSelectors.isLoading);
+
   const dispatch = useDispatch();
 
   const onLogout = useCallback(() => {
@@ -19,7 +21,11 @@ const UserMenu = () => {
       <Hidden xsDown>
         <span>Welcome, {email}</span>
       </Hidden>
-      <Button onClick={onLogout} className={styles.button}>
+      <Button
+        onClick={onLogout}
+        disabled={isLoggingOut}
+        className={styles.button}
+      >
         Logout
       </Button>
     </div>
