@@ -1,0 +1,1 @@
+{"version":3,"sources":["webpack://src/views/HomeView/HomeView.module.css"],"names":[],"mappings":"AAAA,qBACE,UAAW,CACX,aAAc,CACd,iBACF","file":"8.f5ec034d.chunk.css","sourcesContent":[".box {\r\n  width: 100%;\r\n  margin: 0 auto;\r\n  text-align: center;\r\n}\r\n"]}
