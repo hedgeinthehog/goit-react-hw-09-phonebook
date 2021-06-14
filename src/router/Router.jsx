@@ -5,12 +5,10 @@ import PrivateRoute from './PrivateRoute';
 import PublicRoute from './PublicRoute';
 import LinearProgress from '@material-ui/core/LinearProgress';
 
-const HomeView = lazy(() => import('../views/HomeView/HomeView'));
-const RegistrationView = lazy(() =>
-  import('../views/RegistrationView/RegistrationView'),
-);
-const LoginView = lazy(() => import('../views/LoginView/LoginView'));
-const ContactsView = lazy(() => import('../views/ContactsView/ContactsView'));
+const HomeView = lazy(() => import('../views/HomeView'));
+const RegistrationView = lazy(() => import('../views/RegistrationView'));
+const LoginView = lazy(() => import('../views/LoginView'));
+const ContactsView = lazy(() => import('../views/ContactsView'));
 
 const Router = () => (
   <Suspense fallback={<LinearProgress />}>
