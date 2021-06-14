@@ -4,4 +4,5 @@ const getUserEmail = state => state.auth.user.email;
 
 const getErrorMessage = state => state.auth.error;
 
-export default { getIsAuthenticated, getUserEmail, getErrorMessage };
+const exportedSelectors = { getIsAuthenticated, getUserEmail, getErrorMessage };
+export default exportedSelectors;

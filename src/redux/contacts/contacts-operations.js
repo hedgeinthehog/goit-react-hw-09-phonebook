@@ -76,4 +76,5 @@ const deleteContact = id => (dispatch, getState) => {
     });
 };
 
-export default { addContact, deleteContact, fetchContacts };
+const exportedOperations = { addContact, deleteContact, fetchContacts };
+export default exportedOperations;

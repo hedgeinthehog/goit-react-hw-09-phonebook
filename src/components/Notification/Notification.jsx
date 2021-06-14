@@ -1,5 +1,5 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import { React } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import alertSelectors from '../../redux/alert/alert-selectors';
 import { hideAlert } from '../../redux/alert/alert-actions';
 import Snackbar from '@material-ui/core/Snackbar';
@@ -9,17 +9,13 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 
-const Notification = ({
-  isNotificationVisible,
-  message,
-  onCloseAlert,
-  severity,
-}) => {
-  //   const [open, setOpen] = React.useState(false);
+const Notification = () => {
+  const isNotificationVisible = useSelector(alertSelectors.isAlertOpen);
+  const message = useSelector(alertSelectors.alertMessage);
+  const severity = useSelector(alertSelectors.alertType);
+  const dispatch = useDispatch();
 
-  //   const handleClick = () => {
-  //     setOpen(true);
-  //   };
+  const onCloseAlert = () => dispatch(hideAlert());
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -42,14 +38,4 @@ const Notification = ({
   );
 };
 
-const mapStateToProps = state => ({
-  isNotificationVisible: alertSelectors.isAlertOpen(state),
-  message: alertSelectors.alertMessage(state),
-  severity: alertSelectors.alertType(state),
-});
-
-const mapDispatchToProps = {
-  onCloseAlert: hideAlert,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Notification);
+export default Notification;

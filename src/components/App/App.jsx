@@ -1,29 +1,25 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import authOperations from '../../redux/auth/auth-operations';
 import Router from '../../router/Router';
 import AppBar from '../AppBar';
 import Notification from '../Notification';
 import Container from '@material-ui/core/Container';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onGetCurrentUser();
-  }
+const App = () => {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <Container>
-        <AppBar />
-        <Notification />
-        <Router />
-      </Container>
-    );
-  }
-}
+  useEffect(() => {
+    dispatch(authOperations.getCurrentUser());
+  }, [dispatch]);
 
-const mapDispatchToProps = {
-  onGetCurrentUser: authOperations.getCurrentUser,
+  return (
+    <Container>
+      <AppBar />
+      <Notification />
+      <Router />
+    </Container>
+  );
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default App;

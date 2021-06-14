@@ -1,5 +1,18 @@
 import axios from 'axios';
-import authActions from './auth-actions';
+import {
+  registerRequest,
+  registerSuccess,
+  registerError,
+  loginRequest,
+  loginSuccess,
+  loginError,
+  logoutRequest,
+  logoutSuccess,
+  logoutError,
+  getCurrentUserRequest,
+  getCurrentUserSuccess,
+  getCurrentUserError,
+} from './auth-actions';
 import { setAlert } from '../alert/alert-actions';
 import { setErrorAlert } from '../alert/alert-operations';
 
@@ -15,21 +28,18 @@ const token = {
 };
 
 const register = credentials => async dispatch => {
-  dispatch(authActions.registerRequest);
+  dispatch(registerRequest);
 
   try {
     const response = await axios.post('/users/signup', credentials);
 
     token.set(response.data.token);
 
-    console.log(response);
-
     if (response.status === 201) {
-      console.log('alert');
-      dispatch(setAlert({ message: 'Welcone to PhoneBook!', type: 'success' }));
+      dispatch(setAlert({ message: 'Welcome to PhoneBook!', type: 'success' }));
     }
 
-    dispatch(authActions.registerSuccess(response.data));
+    dispatch(registerSuccess(response.data));
   } catch (error) {
     if (error.response.status === 400) {
       dispatch(
@@ -42,7 +52,7 @@ const register = credentials => async dispatch => {
     }
 
     dispatch(
-      authActions.registerError({
+      registerError({
         message: error.message,
         error: error.response.status,
       }),
@@ -51,13 +61,13 @@ const register = credentials => async dispatch => {
 };
 
 const login = credentials => async dispatch => {
-  dispatch(authActions.loginRequest);
+  dispatch(loginRequest);
 
   try {
     const response = await axios.post('/users/login', credentials);
 
     token.set(response.data.token);
-    dispatch(authActions.loginSuccess(response.data));
+    dispatch(loginSuccess(response.data));
   } catch (error) {
     if (error.response.status === 400) {
       dispatch(
@@ -69,7 +79,7 @@ const login = credentials => async dispatch => {
     }
 
     dispatch(
-      authActions.loginError({
+      loginError({
         message: error.message,
         error: error.response.status,
       }),
@@ -78,17 +88,17 @@ const login = credentials => async dispatch => {
 };
 
 const logout = () => async dispatch => {
-  dispatch(authActions.logoutRequest);
+  dispatch(logoutRequest);
 
   try {
     await axios.post('/users/logout');
 
     token.unset();
-    dispatch(authActions.logoutSuccess());
+    dispatch(logoutSuccess());
   } catch (error) {
     dispatch(setErrorAlert(error));
     dispatch(
-      authActions.logoutError({
+      logoutError({
         message: error.message,
         error: error.response.status,
       }),
@@ -105,16 +115,16 @@ const getCurrentUser = () => async (dispatch, getState) => {
 
   token.set(persistedToken);
 
-  dispatch(authActions.getCurrentUserRequest);
+  dispatch(getCurrentUserRequest);
 
   try {
     const response = await axios.get('/users/current');
 
-    dispatch(authActions.getCurrentUserSuccess(response.data));
+    dispatch(getCurrentUserSuccess(response.data));
   } catch (error) {
     dispatch(setErrorAlert(error));
     dispatch(
-      authActions.getCurrentUserError({
+      getCurrentUserError({
         message: error.message,
         error: error.response.status,
       }),
@@ -122,4 +132,6 @@ const getCurrentUser = () => async (dispatch, getState) => {
   }
 };
 
-export default { register, login, logout, getCurrentUser };
+const exportedOperations = { register, login, logout, getCurrentUser };
+
+export default exportedOperations;

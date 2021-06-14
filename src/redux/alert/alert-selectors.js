@@ -4,4 +4,5 @@ const alertMessage = state => state.alert.message;
 
 const alertType = state => state.alert.type;
 
-export default { isAlertOpen, alertMessage, alertType };
+const exportedSelectors = { isAlertOpen, alertMessage, alertType };
+export default exportedSelectors;
