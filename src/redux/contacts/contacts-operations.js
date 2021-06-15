@@ -35,9 +35,7 @@ const fetchContacts = source => dispatch => {
     });
 };
 
-const addContact = (name, number) => dispatch => {
-  const contact = { name, number };
-
+const addContact = contact => dispatch => {
   dispatch(addContactRequest());
 
   axios

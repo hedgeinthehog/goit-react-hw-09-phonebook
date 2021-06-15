@@ -7,37 +7,24 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@material-ui/core/Box';
 
 const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [contact, setContact] = useState({ name: '', number: '' });
 
   const dispatch = useDispatch();
 
   const handleChange = event => {
     const { name, value } = event.target;
 
-    switch (name) {
-      case 'name':
-        setName(value);
-        break;
-      case 'number':
-        setNumber(value);
-        break;
-      default:
-        console.log(`Field with name ${name} is not being supported`);
-    }
+    setContact(prevState => ({ ...prevState, [name]: value }));
   };
 
   const handleSubmit = event => {
     event.preventDefault();
 
-    dispatch(contactsOperations.addContact(name, number));
+    dispatch(contactsOperations.addContact(contact));
     reset();
   };
 
-  const reset = () => {
-    setName('');
-    setNumber('');
-  };
+  const reset = () => setContact({ name: '', number: '' });
 
   return (
     <Box className={styles.box}>
@@ -45,7 +32,7 @@ const ContactForm = () => {
         <TextField
           type="text"
           name="name"
-          value={name}
+          value={contact.name}
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Имя может состоять только из букв, апострофа, тире и пробелов. Например Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan и т. п."
           required
@@ -56,7 +43,7 @@ const ContactForm = () => {
         <TextField
           type="tel"
           name="number"
-          value={number}
+          value={contact.number}
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Номер телефона должен состоять цифр и может содержать пробелы, тире, круглые скобки и может начинаться с +"
           required
