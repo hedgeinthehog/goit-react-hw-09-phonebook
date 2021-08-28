@@ -45,7 +45,10 @@ const RegisterForm = () => {
       }}
     >
       {({ submitForm, isSubmitting }) => (
-        <Form onSubmit={submitForm}>
+        <Form onSubmit={(e) => {
+          e.preventDefault();
+          submitForm();
+        }}>
           <Field
             component={TextField}
             name="name"
